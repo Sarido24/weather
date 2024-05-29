@@ -11,13 +11,13 @@
     <div class="container">
         <div class="content">
             <header>
-                <div class="place-time">
-                    <h1>Jakarta</h1>
-                    <p>Monday, 29 Apr 18:33</p>
+                <div class="place-time" id="place-time">
+                    <h1 id="place">Medan</h1>
+                    <p id="time">Monday, 29 Apr 18:33</p>
                 </div>
                 <div class="search">
-                    <input type="text" class="input-search" id="search">
-                    <button class="but-search" for="input-search"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    <input type="text" class="input-search" id="input-search">
+                    <button onclick="fetchData()" class="but-search"><i class="fa-solid fa-magnifying-glass"></i></button>
                     <a href="#"><i class="fa-solid fa-location-dot"></i></a>
                     <a href="#">Mode</a>
                 </div>
@@ -27,8 +27,8 @@
                     <div class="indicator-wrap">
 
                         <div class="degree" >
-                            <h1>32°C degree</h1>
-                            <p>Scattered Clouds</p>
+                            <h1 id="deg">32°C degree</h1>
+                            <p id="cloud">Scattered Clouds</p>
                         </div>
                         <div class="wind">
                             <div>
