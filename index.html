@@ -12,12 +12,12 @@
         <div class="content">
             <header>
                 <div class="place-time" id="place-time">
-                    <h1 id="place">Medan</h1>
-                    <p id="time">Monday, 29 Apr 18:33</p>
+                    <h1 id="place"></h1>
+                    <p id="time"></p>
                 </div>
                 <div class="search">
-                    <input type="text" class="input-search" id="input-search">
-                    <button onclick="fetchData()" class="but-search"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    <input  type="text" class="input-search" id="input-search">
+                    <button onclick="fetchData()" id="but-search" class="but-search"><i class="fa-solid fa-magnifying-glass"></i></button>
                     <a href="#"><i class="fa-solid fa-location-dot"></i></a>
                     <a href="#">Mode</a>
                 </div>
@@ -27,15 +27,21 @@
                     <div class="indicator-wrap">
 
                         <div class="degree" >
-                            <h1 id="deg">32°C degree</h1>
-                            <p id="cloud">Scattered Clouds</p>
+                            <div id="deg"></div>
+                            <div id="weather-con">
+                                <img id="curImg"  alt="gambar-kondisi">
+                                <p id="curDesc">Sunny</p>
+                            </div>
+
                         </div>
                         <div class="wind">
-                            <div>
-                                <p>62%</p>
+                            <div style="display: flex;">
+                                <p id="cur-humidity"></p>
+                                <p id="cur-humidity-unit"></p>
                             </div>
-                            <div>
-                                <p>2.57 km/h</p>
+                            <div style="display: flex;">
+                                <p id="wind-speed"></p>
+                                <p id="wind-speed-unit"></p>
                             </div>
                         </div>
                     </div>
@@ -43,55 +49,8 @@
                 </section>
         
                 <footer class="footer">
-                    <div class="cards">
-                        <div class="day">
-                            <p>Mon</p>
-                            <div class="image"></div>
-                            <div>
-                                <p>33</p>
-                                <p>27</p>
-                            </div>
-                        </div>
-                        <div class="day">
-                            <p>Mon</p>
-                            <div class="image"></div>
-                            <div>
-                                <p>33</p>
-                                <p>27</p>
-                            </div>
-                        </div>
-                        <div class="day">
-                            <p>Mon</p>
-                            <div class="image"></div>
-                            <div>
-                                <p>33</p>
-                                <p>27</p>
-                            </div>
-                        </div>
-                        <div class="day">
-                            <p>Mon</p>
-                            <div class="image"></div>
-                            <div>
-                                <p>33</p>
-                                <p>27</p>
-                            </div>
-                        </div>
-                        <div class="day">
-                            <p>Mon</p>
-                            <div class="image"></div>
-                            <div>
-                                <p>33</p>
-                                <p>27</p>
-                            </div>
-                        </div>
-                        <div class="day">
-                            <p>Mon</p>
-                            <div class="image"></div>
-                            <div>
-                                <p>33</p>
-                                <p>27</p>
-                            </div>
-                        </div>
+                    <div id="cards" class="cards">
+                       
                     </div>
         
                 </footer>

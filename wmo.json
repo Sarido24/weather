@@ -1,4 +1,4 @@
-const wmo = {
+{
     "0": {
       "day": {
         "description": "Sunny",
@@ -205,7 +205,7 @@ const wmo = {
         "image": "http://openweathermap.org/img/wn/09d@2x.png"
       },
       "night": {
-        "description": "Light Showers",
+        "description": "Light OOOOO",
         "image": "http://openweathermap.org/img/wn/09n@2x.png"
       }
     },
@@ -280,135 +280,3 @@ const wmo = {
       }
     }
   }
-
-// async function fetchDataAwal(kotaAwal) { //Fetch pertama kalinya
-//     const date = new Date();
-//     const dateFormatted = date.toDateString()
-//     const responseOpenWeather = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${kotaAwal}&appid=${apiKey}`)
-//     const responseOpenWeatherJson = await responseOpenWeather.json()
-//         console.log(responseOpenWeatherJson, "<< response Open Weather Json")
-    
-//     let lat = responseOpenWeatherJson.coord.lat;
-//     let lon = responseOpenWeatherJson.coord.lon;
-    
-//     const responseOpenMeteo = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=temperature_2m_max,temperature_2m_min&timezone=Asia%2FBangkok`)
-//     const responseOpenMeteoJson = await responseOpenMeteo.json()
-//     console.log(responseOpenMeteoJson, "<< response Open Meteo Json")
-//     if(responseOpenWeatherJson){
-//         document.getElementById("place").innerHTML = responseOpenWeatherJson.name
-//         document.getElementById("time").innerHTML = dateFormatted;
-//     }
-// }
-
-// const kotaAwal = document.getElementById("place").innerHTML
-// fetchDataAwal(kotaAwal)
-
-const inputSearch = document.getElementById('input-search')
-inputSearch.addEventListener("keypress", function(event) {
-  // If the user presses the "Enter" key on the keyboard
-  if (event.key === "Enter") {
-    // Cancel the default action, if needed
-    event.preventDefault();
-    // Trigger the button element with a click
-    document.getElementById("but-search").click();
-  }
-});
-
-async function fetchData() {
-  let searchCity = document.getElementById("input-search").value
-  
-  if(searchCity === ""){
-    searchCity = "JAKARTA"
-  }else{
-    searchCity = searchCity.toUpperCase();
-  }
-
-  console.log(searchCity, "NAMA KOTAAA");
-
-  // let searchCity = "jakarta"
-  let date = new Date();
-  date = date.toDateString()
-  try {
-    const responGeo = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${searchCity}`)
-    const responGeoJson = await responGeo.json()
-    console.log(responGeoJson, "GEOOO");
-    if(!responGeoJson.results){
-      throw  "Cek kembali nama kota"
-    }else{
-      const lat = responGeoJson.results[0].latitude;
-      const lon = responGeoJson.results[0].longitude;
-      const responseOpenMeteo = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,is_day,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=Asia%2FBangkok`)
-      const responseOpenMeteoJson = await responseOpenMeteo.json()
-      console.log(responseOpenMeteoJson, "<< response Open Meteo Json")
-      // if (responseOpenMeteoJson.results) {
-          const currentTem = responseOpenMeteoJson.current.temperature_2m
-          const currentTemUnit = responseOpenMeteoJson.current_units.temperature_2m
-          const curCloud = responseOpenMeteoJson.current
-          const curCode = responseOpenMeteoJson.current.weather_code.toString()
-          // console.log(wmo[curCode]);
-          const curDay = responseOpenMeteoJson.current.is_day
-          const curHumidity = responseOpenMeteoJson.current.relative_humidity_2m
-          const curHumidityUnit = responseOpenMeteoJson.current_units.relative_humidity_2m
-          const windSpeed = responseOpenMeteoJson.current.wind_speed_10m
-          const windSpeedUnit = responseOpenMeteoJson.current_units.wind_speed_10m
-          let daily = responseOpenMeteoJson.daily
-          let dailyUnits = responseOpenMeteoJson.daily_units
-          let curDesc;
-          let curImg;
-          if(curDay === 1){
-            console.log("MASUK KESINI");
-            curDesc =  wmo[curCode].day.description
-            curImg = wmo[curCode].day.image
-            document.body.style.backgroundImage = "url('https://w0.peakpx.com/wallpaper/506/235/HD-wallpaper-white-hexagon-geometric-shapes-white-aesthetic-thumbnail.jpg')";
-            
-            
-          }else{
-            console.log("MASUK KESANA")
-            curImg = wmo[curCode].night.image
-            curDesc = wmo[curCode].night.description
-            // document.body.style.backgroundImage = "url('https://i.pinimg.com/originals/71/32/d2/7132d24e46182c47ceca0c63470fea70.jpg')";
-            // document.body.style.color = "White";
-          }
-
-          console.log("JALAN WOII");
-          document.getElementById("curImg").src = curImg
-          document.getElementById('curDesc').innerHTML = curDesc
-          document.getElementById("deg").innerHTML = `<h1>${currentTem}</h1>`
-          document.getElementById("deg").innerHTML += `<p>${currentTemUnit}</p>`
-          document.getElementById("place").innerHTML = searchCity      
-          document.getElementById("time").innerHTML = date    
-          document.getElementById("cur-humidity").innerHTML = curHumidity  
-          document.getElementById("cur-humidity-unit").innerHTML = curHumidityUnit  
-          document.getElementById("wind-speed").innerHTML = windSpeed    
-          document.getElementById("wind-speed-unit").innerHTML = windSpeedUnit   
-          document.getElementById("cards").innerHTML = ""
-
-          const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
-          // let day = weekday[d.getDay()];
-          for (let i = 0; i < daily.time.length; i++) {
-            let dailyTime = daily.time[i];
-            const dateObj = new Date(dailyTime)
-            let day = weekday[dateObj.getUTCDay()]
-            console.log(day);
-            document.getElementById("cards").innerHTML += `<div class="day">
-            <p id="per-day">${day}</p>
-            <div class="image"></div>
-            <div id="per-indicator">
-                <p>33</p>
-                <p>27</p>
-            </div>
-        </div>`
-            
-          }
-
-      // }
-      
-    }
-  } catch (error) {
-    console.log(error, "<<< ini error");
-  }
-}
-
-
-
-fetchData()

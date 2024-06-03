@@ -16,7 +16,7 @@ body {
 .content {
     border: 1px solid ;
     width: 80%;
-    height: 80vh;
+    height: 90vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -40,19 +40,38 @@ section {
     display: flex;
     width: 100%;
     justify-content: space-between;
-    background-color: aqua;
+    /* background-color: aqua; */
 }
 .degree {
     display: flex;
     justify-content: start;
     flex-direction: column;
-    background-color: azure;
+    /* background-color: azure; */
+}
+#deg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+}
+#weather-con {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#weather-con img {
+    width: 80%;
+    height: 60%;
 
 }
 .wind {
     flex-direction: column;
     display: flex;
-    background-color: aliceblue;
+    /* background-color: aliceblue; */
+    justify-content: space-around;
+    align-items: center;
+    font-size: 30px;
 }
 
 footer {
@@ -65,5 +84,24 @@ footer {
     display: flex;
     justify-content: space-around;
     width: 70%;
+    gap: 1px;
+}
+
+.day {
     border: 1px solid black;
+    width: 100%;
+}
+
+#per-day {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+#per-indicator {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
 }
