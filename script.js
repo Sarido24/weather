@@ -303,6 +303,8 @@ const wmo = {
 // const kotaAwal = document.getElementById("place").innerHTML
 // fetchDataAwal(kotaAwal)
 
+
+
 const inputSearch = document.getElementById('input-search')
 inputSearch.addEventListener("keypress", function(event) {
   // If the user presses the "Enter" key on the keyboard
@@ -343,9 +345,7 @@ async function fetchData() {
       // if (responseOpenMeteoJson.results) {
           const currentTem = responseOpenMeteoJson.current.temperature_2m
           const currentTemUnit = responseOpenMeteoJson.current_units.temperature_2m
-          const curCloud = responseOpenMeteoJson.current
           const curCode = responseOpenMeteoJson.current.weather_code.toString()
-          // console.log(wmo[curCode]);
           const curDay = responseOpenMeteoJson.current.is_day
           const curHumidity = responseOpenMeteoJson.current.relative_humidity_2m
           const curHumidityUnit = responseOpenMeteoJson.current_units.relative_humidity_2m
@@ -353,21 +353,25 @@ async function fetchData() {
           const windSpeedUnit = responseOpenMeteoJson.current_units.wind_speed_10m
           let daily = responseOpenMeteoJson.daily
           let dailyUnits = responseOpenMeteoJson.daily_units
+          let temMaxUnit = dailyUnits.temperature_2m_min
+          let temMinUnit = dailyUnits.temperature_2m_min
           let curDesc;
           let curImg;
           if(curDay === 1){
             console.log("MASUK KESINI");
             curDesc =  wmo[curCode].day.description
             curImg = wmo[curCode].day.image
-            document.body.style.backgroundImage = "url('https://w0.peakpx.com/wallpaper/506/235/HD-wallpaper-white-hexagon-geometric-shapes-white-aesthetic-thumbnail.jpg')";
+            document.body.style.backgroundImage = "url('https://i.pinimg.com/736x/08/1a/ed/081aed2e7ddc029f940021ddb22145fc.jpg')";
+            document.body.style.color = "black";
             
             
           }else{
             console.log("MASUK KESANA")
             curImg = wmo[curCode].night.image
             curDesc = wmo[curCode].night.description
-            // document.body.style.backgroundImage = "url('https://i.pinimg.com/originals/71/32/d2/7132d24e46182c47ceca0c63470fea70.jpg')";
-            // document.body.style.color = "White";
+            document.body.style.backgroundImage = "url('https://i.pinimg.com/originals/71/32/d2/7132d24e46182c47ceca0c63470fea70.jpg')";
+            // document.body.style = "background-repeat: none;background-size: none;"
+            document.body.style.color = "white";
           }
 
           console.log("JALAN WOII");
@@ -385,18 +389,24 @@ async function fetchData() {
 
           const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
           // let day = weekday[d.getDay()];
+          console.log(daily);
           for (let i = 0; i < daily.time.length; i++) {
             let dailyTime = daily.time[i];
+            let temMax = daily.temperature_2m_max[i]
+            let temMin = daily.temperature_2m_min[i]
+
+            let dailyWeatherCode = daily.weather_code[i]
             const dateObj = new Date(dailyTime)
             let day = weekday[dateObj.getUTCDay()]
-            console.log(day);
-            document.getElementById("cards").innerHTML += `<div class="day">
-            <p id="per-day">${day}</p>
-            <div class="image"></div>
-            <div id="per-indicator">
-                <p>33</p>
-                <p>27</p>
-            </div>
+            // console.log(day);
+            document.getElementById("cards").innerHTML += `
+            <div class="day">
+              <p id="per-day">${day}</p>
+              <img src="${wmo[dailyWeatherCode].day.image}">
+              <div id="per-indicator">
+                  <p>${temMax} <span>${temMaxUnit}</span></p>
+                  <p>${temMin} <span>${temMinUnit}</span></p>
+              </div>
         </div>`
             
           }
@@ -406,6 +416,8 @@ async function fetchData() {
     }
   } catch (error) {
     console.log(error, "<<< ini error");
+    document.getElementById("error").innerHTML = "ERROR"
+    document.getElementById("error").style = "color:red"
   }
 }
 
